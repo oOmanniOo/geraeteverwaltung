@@ -9,7 +9,7 @@
 <p><strong>Seriennummer:</strong> {{ geraet.seriennummer|default:"Nicht verfügbar" }}</p>
 <p><strong>Status:</strong> {{ geraet.status }}</p>
 
-<a href="{% url 'geraete_liste' %}">Zurück zur Liste</a>
-<a href="{% url 'geraete_edit' geraet.id %}">Bearbeiten</a>
+<a href="{% url 'geraete:geraete_liste' %}">Zurück zur Liste</a>
+<a href="{% url 'geraete:geraete_edit' geraet.id %}">Bearbeiten</a>
 
 {% endblock %}

@@ -3,30 +3,34 @@
 {% block title %}Geräte-Übersicht{% endblock %}
 
 {% block content %}
-    <h1>Feuerwehr-Geräte</h1>
+    <h1>Geräteübersicht</h1>
 
-    <a href="{% url 'geraete_create' %}">Gerät anlegen</a>
+    <a href="{% url 'geraete:geraete_create' %}">Gerät anlegen</a>
 
-    <table>
-        <tr>
-            <th>Bezeichnung</th>
-            <th>Identifikation</th>
-            <th>Seriennummer</th>
-            <th>Status</th>
-            <th>Details</th>
-        </tr>
+    <table class="table table-hover border">
+        <thead>
+            <tr>
+                <th>Bezeichnung</th>
+                <th>Identifikation</th>
+                <th>Seriennummer</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+        </thead>
         {% for geraet in geraete %}
-        <tr>
-            <td>{{ geraet.bezeichnung }}</td>
-            <td>{{ geraet.identifikation }}</td>
-            <td>{{ geraet.seriennummer|default:"-" }}</td>
-            <td>{{ geraet.status }}</td>
-            <td><a href="{% url 'geraete_detail' geraet.id %}">Details</a></td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">Keine Geräte vorhanden.</td>
-        </tr>
-        {% endfor %}
+        <tbody>
+            <tr>
+                <td>{{ geraet.bezeichnung }}</td>
+                <td>{{ geraet.identifikation }}</td>
+                <td>{{ geraet.seriennummer|default:"-" }}</td>
+                <td>{{ geraet.status }}</td>
+                <td><a href="{% url 'geraete:geraete_detail' geraet.id %}">Details</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Keine Geräte vorhanden.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
