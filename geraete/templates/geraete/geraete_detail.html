@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} {{ geraet.identifikation }} {% endblock %}
+
+{% block content %}
+<h1>Gerät: {{ geraet.bezeichnung }}</h1>
+
+<p><strong>Identifikation:</strong> {{ geraet.identifikation }}</p>
+<p><strong>Seriennummer:</strong> {{ geraet.seriennummer|default:"Nicht verfügbar" }}</p>
+<p><strong>Status:</strong> {{ geraet.status }}</p>
+
+<a href="{% url 'geraete_liste' %}">Zurück zur Liste</a>
+
+{% endblock %}

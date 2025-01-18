@@ -18,6 +18,7 @@
             <td>{{ geraet.identifikation }}</td>
             <td>{{ geraet.seriennummer|default:"-" }}</td>
             <td>{{ geraet.status }}</td>
+            <td><a href="{% url 'geraete_detail' geraet.id %}">Details</a></td>
         </tr>
         {% empty %}
         <tr>
