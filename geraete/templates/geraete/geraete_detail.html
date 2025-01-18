@@ -10,5 +10,6 @@
 <p><strong>Status:</strong> {{ geraet.status }}</p>
 
 <a href="{% url 'geraete_liste' %}">Zurück zur Liste</a>
+<a href="{% url 'geraete_edit' geraet.id %}">Bearbeiten</a>
 
 {% endblock %}
