@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Geräte erstellen {% endblock %}
+
+{% block content %} 
+
+    <h1>Neues Gerät erstellen</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Gerät anlegen</button>
+    </form>
+
+    <a href=' {% url 'geraete_liste' %} '>Zurück zur Liste</a>
+
+{% endblock %}

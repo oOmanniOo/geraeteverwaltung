@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Gerät bearbeiten {% endblock %}
+
+{% block content %}
+
+<h1>Gerät bearbeiten</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if form.errors %}
+        <div class="errors">
+            <p>Bitte korrigiere die Felhler im Formular:</p>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <button type="submit">Gerät speichern</button>
+</form>
+
+<a href=" {% url 'geraete_liste' %}">Zurück zur Liste</a>
+{% endblock %}
