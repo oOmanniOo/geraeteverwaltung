@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from geraete import views #Nachdem die Startseite definiert ist endernen
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.geraete_liste, name='home'), #wenn Startseite vorhanden ist ändern 
     path('geraete/', include('geraete.urls')),
 ]

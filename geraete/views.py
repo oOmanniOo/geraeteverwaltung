@@ -15,7 +15,7 @@ def geraete_create(request):
         form = GeraeteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('geraete_liste')
+            return redirect('geraete:geraete_liste')
     
     else:
         form = GeraeteForm()
@@ -34,7 +34,7 @@ def geraete_edit(request, id):
                 form.add_error('identifikation', 'Dieses Gerät mit dieser Identifikation existiert bereits.')
             else:
                 form.save()
-                return redirect('geraete_liste')
+                return redirect('geraete:geraete_liste')
     else:
         form = GeraeteForm(instance=geraet)
 
