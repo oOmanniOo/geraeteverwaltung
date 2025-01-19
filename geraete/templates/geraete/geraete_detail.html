@@ -3,13 +3,43 @@
 {% block title %} {{ geraet.identifikation }} {% endblock %}
 
 {% block content %}
-<h1>Gerät: {{ geraet.bezeichnung }}</h1>
 
-<p><strong>Identifikation:</strong> {{ geraet.identifikation }}</p>
-<p><strong>Seriennummer:</strong> {{ geraet.seriennummer|default:"Nicht verfügbar" }}</p>
-<p><strong>Status:</strong> {{ geraet.status }}</p>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2>{{ geraet.bezeichnung }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Identifikation:</strong> {{ geraet.identifikation }}</p>
+                    <p><strong>Seriennummer:</strong> {{ geraet.seriennummer|default:"Keine Seriennummer" }}</p>
+                    <p><strong>Hersteller:</strong> {{ geraet.hersteller|default:"Unbekannt" }}</p>
+                    <p><strong>Kaufdatum:</strong> {{ geraet.kaufdatum|date:"d.m.Y" }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Status:</strong> 
+                        <span class="badge bg-info">{{ geraet.status }}</span>
+                    </p>
+                    <p><strong>Kategorie:</strong> {{ geraet.kategorie }}</p>
+                    <p><strong>Barcode:</strong> {{ geraet.barcode|default:"Kein Barcode" }}</p>
+                </div>
+            </div>
 
-<a href="{% url 'geraete:geraete_liste' %}">Zurück zur Liste</a>
-<a href="{% url 'geraete:geraete_edit' geraet.id %}">Bearbeiten</a>
+            <div class="mt-3">
+                <h5>Bemerkung</h5>
+                <p class="border p-3">{{ geraet.bemerkung|default:"Keine Bemerkung" }}</p>
+            </div>
 
+            <div class="mt-4">
+                <a href="{% url 'geraete:geraete_edit' geraet.id %}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Bearbeiten
+                </a>
+                <a href="{% url 'geraete:geraete_liste' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Zurück zur Liste
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
