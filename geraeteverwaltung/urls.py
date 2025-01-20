@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.geraete_liste, name='home'), #wenn Startseite vorhanden ist ändern 
     path('geraete/', include('geraete.urls')),
+    path('pruefung/', include('pruefung.urls')),
 ]
