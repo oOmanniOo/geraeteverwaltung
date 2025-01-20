@@ -30,10 +30,10 @@
                     <td>{{ geraet.identifikation }}</td>
                     <td>{{ geraet.kategorie|default:"-" }}</td>
                     <td>{{ geraet.seriennummer|default:"-" }}</td>
-                    <td>
+                    <td class="text-center">
                         <span class="badge bg-info">{{ geraet.status }}</span>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a href="{% url 'geraete:geraete_detail' geraet.id %}" class="btn btn-primary btn-sm">
                             <i class="bi bi-eye"></i> Details
                         </a>
