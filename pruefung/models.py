@@ -15,7 +15,6 @@ class Art(models.Model):
         return self.name
 
 class Pruefung(models.Model):
-    name = models.CharField(max_length=200, unique=True, null=False, blank=False)
     datum = models.DateField(blank=False, null=True)
     pruefer = models.CharField(max_length=50, null=False, blank=True)
     befund = models.ForeignKey(Befund, on_delete=models.PROTECT, null=False)
@@ -23,3 +22,5 @@ class Pruefung(models.Model):
     bemerkung = models.TextField(null=True, blank=True)
     geraet = models.ForeignKey(Geraet, on_delete=models.PROTECT, null=False)
     
+    def __str__(self):
+        return f"{self.geraet} wurde am {self.datum} geprüft"

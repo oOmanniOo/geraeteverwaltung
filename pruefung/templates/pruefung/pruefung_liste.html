@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Prüfung-Übersich{% endblock  %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Prüfungsübersicht</h1>
+    
+    <a href="#" class="btn btn-success mb-3">
+        <i class="bi bi-plus-lg">Neue Prüfung</i>
+    </a>
+    
+<div class="table-responive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Gerät</th>
+                <th>Art</th>
+                <th>Befund</th>
+                <th>Prüfer</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pruefung in pruefungen %}
+            <tr>
+                <td> {{ pruefung.geraet }} </td>
+                <td> {{ pruefung.art }} </td>
+                <td> {{ pruefung.befund }} </td>
+                <td> {{ pruefung.pruefer }} </td>
+                <td> <a href="#" class="btn btn-primary btn-sm"><i class="bi bi-eye">Details</i></a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+
+{% endblock  %}
