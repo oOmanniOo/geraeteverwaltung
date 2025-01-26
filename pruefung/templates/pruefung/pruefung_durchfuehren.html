@@ -1,17 +1,26 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %} Prüfung durchführen {% endblock %}
 
 {% block content %}
 
-<h1>Prüfung durchführen</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Prüfung speichern</button>
-</form>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h1>Prüfung durchführen</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit">Prüfung speichern</button>
+            </form>
 
-<a href="{% url 'pruefung:pruefungs_liste' %}">Zurück zur Liste</a>
+            <a href="{% url 'pruefung:pruefungs_liste' %}">Zurück zur Liste</a>
+        </div>
+    </div>
+</div>
 
 {% endblock  %}
