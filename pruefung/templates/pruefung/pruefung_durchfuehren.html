@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Prüfung durchführen {% endblock %}
+
+{% block content %}
+
+<h1>Prüfung durchführen</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Prüfung speichern</button>
+</form>
+
+<a href="{% url 'pruefung:pruefungs_liste' %}">Zurück zur Liste</a>
+
+{% endblock  %}

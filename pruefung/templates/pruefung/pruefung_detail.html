@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} {{ pruefung.geraet }} {% endblock  %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2>{{ pruefung.geraet }}</h2>
+        </div>
+        <div class="card-body"> 
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Gerät:</strong> {{ pruefung.geraet }}</p>
+                    <p><strong>Prüfung:</strong> {{ pruefung.art }}</p>
+                    <p><strong>Befund:</strong> {{ pruefung.befund }}</p>
+                    <p><strong>Prüfungsdatum:</strong> {{ pruefung.datum }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Prüfer:</strong>{{ pruefung.pruefer }}</p>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <h5>Bemerkung</h5>
+                <p class="border p-3">{{ pruefung.bemerkung|default:"Keine Bemerkung" }}</p>
+            </div>
+
+            <div class="mt-4">
+                <a href="#" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Bearbeiten
+                </a>
+                <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Zurück zur Liste
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
