@@ -1,5 +1,5 @@
 from django.db import models
-from geraete.models import Geraet
+from geraete.models import Geraet, Kategorie
 
 # Create your models here.
 class Befund(models.Model):
@@ -24,3 +24,19 @@ class Pruefung(models.Model):
     
     def __str__(self):
         return f"{self.geraet} wurde am {self.datum} geprüft"
+    
+class Checkliste_Fragen(models.Model):
+    art = models.ForeignKey(Art, on_delete=models.PROTECT)
+    kategorie = models.ForeignKey(Kategorie, on_delete=models.PROTECT)
+    frage = models.CharField(max_length=200, null=False, blank=False)
+    
+class Checkliste_Ergebnis(models.Model):
+    pruefung = models.ForeignKey(Pruefung, on_delete=models.PROTECT, null=False)
+    frage = models.ForeignKey(Checkliste_Fragen, on_delete=models.PROTECT, null=False)
+    antwort = models.BooleanField()
+    bemerkung = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        constraints =[
+            models.UniqueConstraint(fields=['pruefung', 'frage'], name='unique_pruefung_frage')
+        ]

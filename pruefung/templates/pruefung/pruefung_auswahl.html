@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Auswahl Prüfung {% endblock  %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h1>Prüfung Auswählen</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <select name="auswahlart">
+                    {% for art in arten %}
+                        <option value="{{ art.id }}"> {{ art.name }} </option>
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+                <select name="auswahlgeraet">
+                    {% for geraet in geraete %}
+                        <option value="{{ geraet.id }}"> {{ geraet.bezeichnung }}</option>
+                    {% endfor %}
+                <select>
+                <br>
+                <br>
+                <button class="submit">Auswahl bestätigen</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
