@@ -38,4 +38,10 @@
         </div>
     </div>
 </div>
+
+{% for antwort in antworten %}
+    {{ antwort.frage }}
+    {{ antwort.antwort }}
+    {{ antwort.bemerkung }}
+{% endfor %}
 {% endblock  %}

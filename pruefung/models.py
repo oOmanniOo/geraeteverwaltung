@@ -30,6 +30,9 @@ class Checkliste_Fragen(models.Model):
     kategorie = models.ForeignKey(Kategorie, on_delete=models.PROTECT)
     frage = models.CharField(max_length=200, null=False, blank=False)
     
+    def __str__(self):
+        return self.frage
+    
 class Checkliste_Ergebnis(models.Model):
     pruefung = models.ForeignKey(Pruefung, on_delete=models.PROTECT, null=False)
     frage = models.ForeignKey(Checkliste_Fragen, on_delete=models.PROTECT, null=False)

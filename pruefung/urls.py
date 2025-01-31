@@ -8,6 +8,6 @@ urlpatterns = [
     path('<int:id>/', views.pruefung_detail, name='pruefung_detail'),
     path('pruefen/', views.pruefung_starten, name='pruefung_starten'),
     path('auswahl/', views.pruefung_auswahl, name='pruefung_auswahl'),
-    path('pruefung-durchfuehren/', views.pruefung_durchfuehren, name='pruefung_durchfuehren'),
+    path('durchfuehren/', views.pruefung_durchfuehren, name='pruefung_durchfuehren'),
 ]
 
