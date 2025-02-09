@@ -14,14 +14,13 @@
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
-                {{ pruefung_form.as_p }}
+                {{ pruefung_form|crispy}}
             
                 {{ formset.management_form }}
-                {% for form in formset %}
+                {% for form, question in zipped_forms %}
                     <div class="form-group">
-                        <!-- Falls du den Fragetext zusätzlich anzeigen möchtest:
-                             Hole dazu den passenden Fragetext aus checkliste_fragen. -->
-                        {{ form.as_p }}
+                        <p><strong> {{ question.frage }} </strong></p>
+                        {{ form|crispy }}
                     </div>
                 {% endfor %}
             

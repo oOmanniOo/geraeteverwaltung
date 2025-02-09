@@ -63,9 +63,11 @@ def pruefung_durchfuehren(request):
         # Für jede Frage setzen wir initial den Wert für das Feld 'frage'
         initial_data = [{'frage': frage.id} for frage in checkliste_fragen]
         formset = ChecklistenErgebnisFormSet(queryset=Checkliste_Ergebnis.objects.none(), initial=initial_data)
-        pruefung_form = PruefungForm()
+        zipped_forms = list(zip(formset, checkliste_fragen))
+        pruefung_form = PruefungForm(art_initial=art_id, geraet_initial=geraet_id)
         context = {
             'pruefung_form': pruefung_form,
+            'zipped_forms' : zipped_forms,
             'formset': formset,
             'checkliste_fragen': checkliste_fragen,
         }
