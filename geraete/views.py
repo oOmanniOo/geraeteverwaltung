@@ -9,7 +9,7 @@ def geraete_liste(request):
 
 def geraete_detail(request, id):
     geraet = get_object_or_404(Geraet, id=id)
-    pruefungen = Pruefung.objects.filter(geraet=geraet)
+    pruefungen = Pruefung.objects.filter(geraet=geraet).order_by('-datum')[:5]
     return render(request, 'geraete/geraete_detail.html', {'geraet': geraet, 'pruefungen':pruefungen})
 
 def geraete_create(request):

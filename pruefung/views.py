@@ -4,11 +4,19 @@ from django.forms import modelformset_factory
 from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen
 from geraete.models import Geraet
 from .forms import PruefungForm, ChecklistenErgebnisForm
+from django.contrib import messages
+from django.utils.timezone import now
 
 # Create your views here.
 def pruefung_liste(request):
     pruefungen = Pruefung.objects.all()
     return render(request, 'pruefung/pruefung_liste.html', {'pruefungen' : pruefungen})
+
+def pruefung_naechste(request):
+    pruefungen = Pruefung.objects.all()
+    pruefungen = [p for p in pruefungen if p.naechste_pruefung() <= now().date()]
+    pruefungen = sorted(pruefungen, key=lambda p: p.naechste_pruefung())
+    return render(request, 'pruefung/pruefung_naechste.html', {'pruefungen' : pruefungen})
 
 def pruefung_detail(request, id):
     pruefung = get_object_or_404(Pruefung, id=id)
@@ -90,7 +98,7 @@ def pruefung_durchfuehren(request):
                         instance.frage = form.initial.get('frage')
                     instance.pruefung = pruefung_instance
                     instance.save()
-            
+            messages.success(request, "Prüfung erfolgreich durchgeführt")
             return redirect(reverse('pruefung:pruefungs_liste'))
         else:
             context = {

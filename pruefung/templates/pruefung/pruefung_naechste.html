@@ -17,9 +17,9 @@
             <tr>
                 <th>Gerät</th>
                 <th>Art</th>
-                <th>Datum</th>
-                <th>Befund</th>
-                <th>Details</th>
+                <th>Prüfung Fällig</th>
+                <th>letzte Prüfung</th>
+                <th>Prüfung durchführen</th>
             </tr>
         </thead>
         <tbody>
@@ -27,9 +27,11 @@
             <tr>
                 <td> {{ pruefung.geraet }} </td>
                 <td> {{ pruefung.art }} </td>
-                <td> {{ pruefung.datum }}</td>
-                <td> {{ pruefung.befund }} </td>
-                <td> <a href=" {% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-primary btn-sm"><i class="bi bi-eye">Details</i></a> </td>
+                <td> {{ pruefung.naechste_pruefung }}</td>
+                <td> {{ pruefung.datum }} </td>
+                <td> 
+                    <a href=" {% url 'pruefung:pruefung_durchfuehren' %}?art= {{ pruefung.art.id }}&geraet= {{ pruefung.geraet.id }} " class="btn btn-primary btn-sm"><i class="bi bi-eye">Details</i></a> 
+                </td>
             </tr>
             {% endfor %}
         </tbody>

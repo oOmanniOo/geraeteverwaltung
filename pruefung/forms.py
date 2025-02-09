@@ -9,8 +9,9 @@ class PruefungForm(forms.ModelForm):
     
     class Meta:
         model = Pruefung
-        fields = ['datum','art_display', 'geraet_display', 'pruefer', 'befund', 'art','bemerkung', 'geraet']
+        fields = ['datum','art_display', 'geraet_display', 'pruefer', 'befund', 'art','bemerkung', 'geraet', 'bestanden', 'intervall']
         widgets = {
+            'datum': forms.DateInput(attrs={'type': 'date'}),
             'art': forms.HiddenInput(),
             'geraet': forms.HiddenInput(),
         }
