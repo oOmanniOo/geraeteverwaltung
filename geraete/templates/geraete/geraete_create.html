@@ -1,17 +1,20 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %} Geräte erstellen {% endblock %}
 
 {% block content %} 
 
     <h1>Neues Gerät erstellen</h1>
-
+<div class="container mt-5">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type="submit">Gerät anlegen</button>
     </form>
 
     <a href="{% url 'geraete:geraete_liste' %}">Zurück zur Liste</a>
     
+</div>
+ 
 {% endblock %}

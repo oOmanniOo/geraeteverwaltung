@@ -8,16 +8,24 @@
 
 <div class="container mt-5">
     <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h1>Prüfung durchführen</h1>
+        <div class="card-header bg-dark text-white">
+            <h1>Prüfung Neu</h1>
         </div>
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit">Prüfung speichern</button>
+                {{ pruefung_form|crispy}}
+            
+                {{ formset.management_form }}
+                {% for form, question in zipped_forms %}
+                    <div class="form-group">
+                        <p><strong> {{ question.frage }} </strong></p>
+                        {{ form|crispy }}
+                    </div>
+                {% endfor %}
+            
+                <button type="submit" class="btn btn-success">Prüfung speichern</button>
             </form>
-
             <a href="{% url 'pruefung:pruefungs_liste' %}">Zurück zur Liste</a>
         </div>
     </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Geraet
-from pruefung.models import Pruefung
+from pruefung.models import Pruefung, Naechste_Pruefung
 from .forms import GeraeteForm
 
 def geraete_liste(request):
@@ -9,8 +9,9 @@ def geraete_liste(request):
 
 def geraete_detail(request, id):
     geraet = get_object_or_404(Geraet, id=id)
-    pruefungen = Pruefung.objects.filter(geraet=geraet)
-    return render(request, 'geraete/geraete_detail.html', {'geraet': geraet, 'pruefungen':pruefungen})
+    pruefung_status = Naechste_Pruefung.objects.filter(geraet=geraet)
+    pruefungen = Pruefung.objects.filter(geraet=geraet).order_by('-datum')[:5]
+    return render(request, 'geraete/geraete_detail.html', {'geraet': geraet, 'pruefungen':pruefungen, 'pruefung_status': pruefung_status})
 
 def geraete_create(request):
     if request.method == 'POST':

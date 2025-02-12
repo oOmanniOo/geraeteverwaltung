@@ -17,19 +17,19 @@
             <tr>
                 <th>Gerät</th>
                 <th>Art</th>
-                <th>Datum</th>
-                <th>Befund</th>
-                <th>Details</th>
+                <th>letzte Prüfung</th>
+                <th>Nächste Prüfung</th>
             </tr>
         </thead>
         <tbody>
-            {% for pruefung in pruefungen|dictsortreversed:"datum" %}
+            {% for pruefungstatus in pruefung_status %}
             <tr>
-                <td> {{ pruefung.geraet }} </td>
-                <td> {{ pruefung.art }} </td>
-                <td> {{ pruefung.datum }}</td>
-                <td> {{ pruefung.befund }} </td>
-                <td> <a href=" {% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-primary btn-sm"><i class="bi bi-eye">Details</i></a> </td>
+                {% if pruefungstatus.naechste_pruefung != None %}
+                <td> {{ pruefungstatus.geraet }} </td>
+                <td> {{ pruefungstatus.art }} </td>
+                <td> {{ pruefungstatus.letzte_pruefung }}</td>
+                <td> {{ pruefungstatus.naechste_pruefung }} </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
