@@ -56,3 +56,12 @@ class Checkliste_Ergebnis(models.Model):
         
     def __str__(self):
         return f"{self.pruefung.geraet} Frage: {self.frage}"
+
+class Naechste_Pruefung(models.Model):
+    geraet = models.ForeignKey(Geraet, on_delete=models.CASCADE)
+    art = models.ForeignKey(Art, on_delete=models.CASCADE)
+    letzte_pruefung = models.DateField(null=True, blank=True)
+    naechste_pruefung = models.DateField(null=True, blank=True)
+    
+    class Meta:
+        unique_together = ('geraet', 'art')

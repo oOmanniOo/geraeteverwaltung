@@ -31,7 +31,7 @@ class PruefungForm(forms.ModelForm):
                 self.fields['art_display'].initial = ""
         
         if geraet_initial:
-            self.fields['geraet'].initial = art_initial
+            self.fields['geraet'].initial = geraet_initial
             try:
                 geraet_obj = Geraet.objects.get(id=geraet_initial)
                 self.fields['geraet_display'].initial = str(geraet_obj)

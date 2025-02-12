@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.forms import modelformset_factory
-from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen
+from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen, Naechste_Pruefung
 from geraete.models import Geraet
 from .forms import PruefungForm, ChecklistenErgebnisForm
 from django.contrib import messages
 from django.utils.timezone import now
+from .models import Naechste_Pruefung
 
 # Create your views here.
 def pruefung_liste(request):
@@ -13,10 +14,9 @@ def pruefung_liste(request):
     return render(request, 'pruefung/pruefung_liste.html', {'pruefungen' : pruefungen})
 
 def pruefung_naechste(request):
-    pruefungen = Pruefung.objects.all()
-    pruefungen = [p for p in pruefungen if p.naechste_pruefung() <= now().date()]
-    pruefungen = sorted(pruefungen, key=lambda p: p.naechste_pruefung())
-    return render(request, 'pruefung/pruefung_naechste.html', {'pruefungen' : pruefungen})
+    pruefung_status = Naechste_Pruefung.objects.filter(naechste_pruefung__lt=now().date()).order_by("naechste_pruefung")
+    print(pruefung_status)
+    return render(request, 'pruefung/pruefung_naechste.html', {'pruefung_status': pruefung_status})
 
 def pruefung_detail(request, id):
     pruefung = get_object_or_404(Pruefung, id=id)
@@ -56,7 +56,7 @@ def pruefung_auswahl(request):
 def pruefung_durchfuehren(request):
     art_id = request.GET.get("art")
     geraet_id = request.GET.get("geraet")
-    
+        
     # Hole die passenden Checklisten-Fragen anhand der Prüfungsart und des Geräts
     checkliste_fragen = Checkliste_Fragen.objects.filter(art_id=art_id, kategorie__geraet=geraet_id)
     
@@ -84,7 +84,7 @@ def pruefung_durchfuehren(request):
     else:  # POST-Anfrage
         pruefung_form = PruefungForm(request.POST)
         formset = ChecklistenErgebnisFormSet(request.POST)
-        
+
         if pruefung_form.is_valid() and formset.is_valid():
             # Speichere zuerst das Prüfungsformular, um eine Instanz zu erhalten
             pruefung_instance = pruefung_form.save()
