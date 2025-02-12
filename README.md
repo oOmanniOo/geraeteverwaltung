@@ -1,103 +1,154 @@
-Geräteverwaltung & Prüfungsmanagement
-Dieses Projekt ist eine Django-basierte Anwendung zur Verwaltung von Geräten und deren regelmäßiger Prüfung – speziell zugeschnitten auf die Anforderungen einer Feuerwehr. Es umfasst Funktionen zur Geräteverwaltung, zur Planung und Nachverfolgung von Prüfungen (Prüfungen) sowie zur Durchführung von Checklisten während der Prüfungen gemäß DGUV Grundsatz 305-002.
+# Geräteverwaltung & Prüfungsmanagement
 
-Features
-Geräteverwaltung: Erstellen, Bearbeiten und Löschen von Geräten mit detaillierten Attributen.
-Prüfungsmanagement: Planung und Nachverfolgung von Prüfungen; automatische Berechnung des nächsten Prüftermins anhand eines konfigurierbaren Intervalls.
-Checklisten: Dynamische Checklisten, die während einer Prüfung basierend auf der Prüfungsart und dem Gerätetyp generiert werden. Die Ergebnisse werden zusammen mit der Prüfung in der Datenbank gespeichert.
-Automatische Statusaktualisierung: Beim Speichern einer Prüfung wird automatisch über Django-Signals (oder alternativ in der View) ein separater Eintrag aktualisiert, der für jedes Gerät und jede Prüfungsart das Datum der letzten und der nächsten Prüfung speichert.
-Admin-Interface: Verwaltung aller Modelle über das integrierte Django-Admin.
-Benutzerbenachrichtigungen: Einsatz des Django-Nachrichtenframeworks, um Rückmeldungen (z. B. "Prüfung erfolgreich durchgeführt") an den Benutzer zu übermitteln.
-Live-Testumgebung: Möglichkeit, die Anwendung in einer produktionsähnlichen Umgebung auf einem Windows-PC mit SQLite3 laufen zu lassen.
-Installation
-Voraussetzungen
-Python 3.10 (oder höher)
-Git
-Eine virtuelle Umgebung (z. B. venv)
-Schritt-für-Schritt-Anleitung
-Repository klonen
+Dieses Projekt ist eine Django-basierte Anwendung zur Verwaltung von Geräten und deren regelmäßiger Prüfung – speziell zugeschnitten auf die Anforderungen einer Feuerwehr. Die Anwendung umfasst Funktionen zur Geräteverwaltung, zur Planung und Nachverfolgung von Prüfungen sowie zur Durchführung von Checklisten während der Prüfungen gemäß DGUV Grundsatz 305-002.
 
-Öffne ein Terminal und klone das Repository:
+## Features
 
-git clone https://github.com/dein-benutzername/gerateverwaltung.git
-cd gerateverwaltung
-Virtuelle Umgebung erstellen und aktivieren
+- **Geräteverwaltung:**  
+  Erstellen, Bearbeiten und Löschen von Geräten mit detaillierten Attributen.
 
-Erstelle und aktiviere eine virtuelle Umgebung:
+- **Prüfungsmanagement:**  
+  Planung und Nachverfolgung von Prüfungen; automatische Berechnung des nächsten Prüftermins basierend auf einem konfigurierbaren Intervall.
 
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# macOS/Linux:
-source .venv/bin/activate
-Abhängigkeiten installieren
+- **Checklisten:**  
+  Dynamische Checklisten, die während einer Prüfung basierend auf der Prüfungsart und dem Gerätetyp generiert werden. Die Ergebnisse werden zusammen mit der Prüfung in der Datenbank gespeichert.
 
-Installiere alle benötigten Pakete:
+- **Automatische Statusaktualisierung:**  
+  Beim Speichern einer Prüfung wird über Django-Signals ein separater Eintrag aktualisiert, der für jedes Gerät und jede Prüfungsart das Datum der letzten und der nächsten Prüfung speichert.
 
-pip install -r requirements.txt
-Umgebungsvariablen konfigurieren
+- **Admin-Interface:**  
+  Verwaltung aller Modelle über das integrierte Django-Admin.
 
-Erstelle eine .env-Datei im Projektstamm (dort, wo auch manage.py liegt) und trage die nötigen Variablen ein, z. B.:
+- **Benutzerbenachrichtigungen:**  
+  Einsatz des Django-Nachrichtenframeworks, um Rückmeldungen (z. B. "Prüfung erfolgreich durchgeführt") an den Benutzer zu übermitteln.
 
-env
-Kopieren
-Bearbeiten
-SECRET_KEY=dein_geheimer_schluessel
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-Datenbank migrieren
+- **Live-Testumgebung:**  
+  Möglichkeit, die Anwendung in einer produktionsähnlichen Umgebung auf einem Windows-PC mit SQLite3 auszuführen.
 
-Erstelle die Datenbank und führe die Migrationen aus:
+## Installation
 
-python manage.py makemigrations
-python manage.py migrate
-Statische Dateien sammeln
+### Voraussetzungen
 
-Sammle alle statischen Dateien:
+- Python 3.10 (oder höher)
+- Git
+- Eine virtuelle Umgebung (z. B. `venv`)
 
-Bearbeiten
-python manage.py collectstatic --noinput
-Admin-Benutzer erstellen
+### Schritt-für-Schritt-Anleitung
 
-Erstelle einen Superuser, um Zugriff auf das Admin-Panel zu erhalten:
+1. **Repository klonen**
 
-python manage.py createsuperuser
-Testserver starten
+   Öffne ein Terminal und klone das Repository:
 
-Starte den Entwicklungsserver:
+   ```bash
+   git clone https://github.com/dein-benutzername/gerateverwaltung.git
+   cd gerateverwaltung
+   ```
 
-Bearbeiten
-python manage.py runserver
-Die Anwendung ist dann unter http://127.0.0.1:8000 erreichbar.
+2. **Virtuelle Umgebung erstellen und aktivieren**
 
-Nutzung
-Geräteverwaltung:
-Gehe zur URL /geraete/, um alle Geräte zu verwalten.
+   Erstelle und aktiviere eine virtuelle Umgebung:
 
-Prüfungsmanagement:
+   ```bash
+   python -m venv .venv
+   # Windows:
+   .venv\Scripts\activate
+   # macOS/Linux:
+   source .venv/bin/activate
+   ```
 
-Wähle unter /pruefung/auswahl/ die gewünschte Prüfungsart und das Gerät aus.
-Fülle im Formular unter /pruefung/durchfuehren/ die Prüfungsdaten sowie die zugehörige Checkliste aus.
-Nach erfolgreichem Speichern erhältst du eine Bestätigung und kannst die Prüfungsergebnisse in der Übersicht einsehen.
-Admin-Interface:
-Über http://127.0.0.1:8000/admin/ können alle Daten (Geräte, Prüfungen, Checklisten) verwaltet werden.
+3. **Abhängigkeiten installieren**
 
-Deployment (Live-Testumgebung)
-Das Projekt kann auch in einer produktionsähnlichen Umgebung auf einem Windows-PC ausgeführt werden. Die Schritte sind im Grunde identisch mit der Installation:
+   Installiere alle benötigten Pakete:
 
-Repository klonen und virtuelle Umgebung einrichten
-Abhängigkeiten installieren
-Umgebungsvariablen konfigurieren (setze DEBUG=False in der Produktion)
-Migrationen ausführen und statische Dateien sammeln
-Einen Produktionsserver starten
-Für eine lokale Produktionsumgebung kannst du z. B. Waitress verwenden:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-bash
-Kopieren
-Bearbeiten
+4. **Umgebungsvariablen konfigurieren**
+
+   Erstelle eine `.env`-Datei im Projektstamm (dort, wo auch `manage.py` liegt) und trage die nötigen Variablen ein, z. B.:
+
+   ```env
+   SECRET_KEY=dein_geheimer_schluessel
+   DEBUG=True
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   ```
+
+5. **Datenbank migrieren**
+
+   Erstelle die Datenbank und führe die Migrationen aus:
+
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+6. **Statische Dateien sammeln**
+
+   ```bash
+   python manage.py collectstatic
+   ```
+
+7. **Admin-Benutzer erstellen**
+
+   Erstelle einen Superuser, um auf das Admin-Panel zugreifen zu können:
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+8. **Testserver starten**
+
+   Starte den Entwicklungsserver:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+   Die Anwendung ist dann unter [http://127.0.0.1:8000](http://127.0.0.1:8000) erreichbar.
+
+## Nutzung
+
+### Geräteverwaltung
+
+Rufe `/geraete/` auf, um alle Geräte zu verwalten.
+
+### Prüfungsmanagement
+
+- Gehe zur URL `/pruefung/auswahl/`, um die gewünschte Prüfungsart und das Gerät auszuwählen.
+- Fülle im Formular auf `/pruefung/durchfuehren/` die Prüfungsdaten und die zugehörige Checkliste aus.
+- Nach erfolgreichem Speichern erhältst du eine Bestätigung, und die Prüfungsergebnisse sind in der Übersicht sichtbar.
+
+### Admin-Interface
+
+Über [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) können alle Modelle (Geräte, Prüfungen, Checklisten) verwaltet werden.
+
+## Deployment (Live-Testumgebung)
+
+Das Projekt kann auch in einer produktionsähnlichen Umgebung auf einem Windows-PC mit SQLite3 ausgeführt werden. Die Schritte sind im Grunde identisch mit der Installation:
+
+1. **Repository klonen und virtuelle Umgebung einrichten**
+2. **Abhängigkeiten installieren und Umgebungsvariablen konfigurieren**
+   - Setze in der Produktion `DEBUG=False`.
+3. **Migrationen ausführen und statische Dateien sammeln**
+4. **Starte den Produktionsserver**
+
+Für eine lokale Produktionsumgebung kannst du beispielsweise [Waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/) verwenden:
+
+```bash
 waitress-serve --port=8000 geraeteverwaltung.wsgi:application
-Stelle sicher, dass die Firewall den Port 8000 freigibt, damit die Anwendung im Netzwerk erreichbar ist.
+```
 
-Contributing
-Beiträge sind willkommen! Wenn du Fehler findest oder neue Features hinzufügen möchtest, erstelle bitte einen Issue oder pull request.
+**Stelle sicher, dass deine Firewall den Port 8000 freigibt, damit die Anwendung im Netzwerk erreichbar ist.**
 
+## Contributing
+
+Beiträge sind willkommen! Wenn du Fehler findest oder neue Features hinzufügen möchtest, erstelle bitte einen Issue oder Pull Request.
+
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz – siehe die [LICENSE](LICENSE)-Datei für Details.
+
+## Kontakt
+
+Für Fragen oder Anregungen kontaktiere bitte **Dein Name**.
