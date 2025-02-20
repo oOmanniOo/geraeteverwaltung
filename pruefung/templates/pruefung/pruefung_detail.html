@@ -54,12 +54,9 @@
             </div>
             {% endif %}
             <div class="mt-4">
-                <a href="#" class="btn btn-warning">
-                    <i class="bi bi-pencil"></i> Bearbeiten
-                </a>
-                <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Zurück zur Liste
-                </a>
+                <a href="{% url 'pruefung:pdf_erzeugen' pruefung.id %}" class="btn btn-success" target="_blank" rel="noopener noreferrer">PDF erzeugen</a>
+                <a href="#" class="btn btn-warning">Bearbeiten</a>
+                <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">Zurück zur Liste</a>
             </div>
         </div>
     </div>

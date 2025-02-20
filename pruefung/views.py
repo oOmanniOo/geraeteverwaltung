@@ -6,7 +6,9 @@ from geraete.models import Geraet
 from .forms import PruefungForm, ChecklistenErgebnisForm
 from django.contrib import messages
 from django.utils.timezone import now
-from .models import Naechste_Pruefung
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from weasyprint import HTML
 
 # Create your views here.
 def pruefung_liste(request):
@@ -107,3 +109,15 @@ def pruefung_durchfuehren(request):
                 'checkliste_fragen': checkliste_fragen,
             }
             return render(request, 'pruefung/pruefung_durchfuehren.html', context)
+        
+def generate_pdf(request, id):
+    pruefung = get_object_or_404(Pruefung, id=id)
+    antworten = Checkliste_Ergebnis.objects.filter(pruefung_id = pruefung.id, )
+    html_string = render_to_string('pruefung/pdf_template.html', {'pruefung': pruefung, 'antworten' : antworten})
+    
+    html = HTML(string=html_string, base_url=request.build_absolute_uri('/'))
+    pdf = html.write_pdf()
+    
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="pruefung.pdf"'
+    return response

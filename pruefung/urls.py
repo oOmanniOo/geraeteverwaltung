@@ -10,5 +10,6 @@ urlpatterns = [
     path('pruefen/', views.pruefung_starten, name='pruefung_starten'),
     path('auswahl/', views.pruefung_auswahl, name='pruefung_auswahl'),
     path('durchfuehren/', views.pruefung_durchfuehren, name='pruefung_durchfuehren'),
+    path('pdf/<int:id>/', views.generate_pdf, name='pdf_erzeugen')
 ]
 
