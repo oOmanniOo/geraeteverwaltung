@@ -3,15 +3,10 @@
 
 {% block title %} Gerät bearbeiten {% endblock %}
 
+{% block content-header %}Gerät bearbeiten{% endblock  %}
 {% block content %}
 
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h1>Gerät bearbeiten</h1>
-        </div>
-        <div class="card-body">
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -34,7 +29,5 @@
                     
                     <a href=" {% url 'geraete:geraete_liste' %}">Zurück zur Liste</a>
                 </div>
-            </div>
-        </div>
 
         {% endblock %} 

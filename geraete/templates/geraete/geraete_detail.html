@@ -1,112 +1,134 @@
     {% extends "base.html" %}
 
-    {% block title %} {{ geraet.identifikation }} {% endblock %}
+    {% block title %}{{ geraet.identifikation }}{% endblock %}
+
+    {% block content-header %}{{ geraet.bezeichnung }}{% endblock %}
 
     {% block content %}
-
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white">
-                <h2>{{ geraet.bezeichnung }}</h2>
+    <!-- Linke Spalte: Gerätedetails -->
+    <div class="col-md-6">
+        <h5 class="mb-3">Gerätedetails</h5>
+        <table class="table table-borderless">
+            <tr>
+                <th style="width: 40%;">Identifikation:</th>
+                <td>{{ geraet.identifikation }}</td>
+            </tr>
+                <tr>
+                <th>Seriennummer:</th>
+                <td>{{ geraet.seriennummer|default:"Keine Seriennummer" }}</td>
+                </tr>
+                <tr>
+                <th>Hersteller:</th>
+                <td>{{ geraet.hersteller|default:"Unbekannt" }}</td>
+                </tr>
+                <tr>
+                <th>Kaufdatum:</th>
+                <td>{{ geraet.kaufdatum|date:"d.m.Y" }}</td>
+                </tr>
+            </table>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Identifikation:</strong> {{ geraet.identifikation }}</p>
-                        <p><strong>Seriennummer:</strong> {{ geraet.seriennummer|default:"Keine Seriennummer" }}</p>
-                        <p><strong>Hersteller:</strong> {{ geraet.hersteller|default:"Unbekannt" }}</p>
-                        <p><strong>Kaufdatum:</strong> {{ geraet.kaufdatum|date:"d.m.Y" }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Status:</strong> 
-                            <span class="badge bg-info">{{ geraet.status }}</span>
-                        </p>
-                        <p><strong>Kategorie:</strong> {{ geraet.kategorie }}</p>
-                        <p><strong>Barcode:</strong> {{ geraet.barcode|default:"Kein Barcode" }}</p>
-                        {% if pruefung_status %}
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Prüfung</th>
-                                        <th>letzte Prüfung</th>
-                                        <th>nächste Prüfung</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for pruefungstatus in pruefung_status %}
-                                    <tr>
-                                        <td>{{ pruefungstatus.art }}</td>
-                                        <td>{{ pruefungstatus.naechste_pruefung }}</td>
-                                        <td>{{ pruefungstatus.letzte_pruefung }}</td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td colspan="6" class="text-center">Keine Geräte vorhanden.</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                            {% for pruefungstatus in pruefung_status %}
-                            <p><strong> : </strong>  </p>
-                            {% endfor %}
-                            
-                        
-                        {% endif %}
-                    </div>
-                    <div class="mt-3">
-                        <h5>Bemerkung</h5>
-                        <p class="border p-3">{{ geraet.bemerkung|default:"Keine Bemerkung" }}</p>
-                    </div>
-                </div>
-
-                {% if pruefungen %}
+            <!-- Rechte Spalte: Status, Kategorie, Barcode und Prüfungsstatus -->
+            <div class="col-md-6">
+            <h5 class="mb-3">Weitere Details</h5>
+            <table class="table table-borderless">
+                <tr>
+                <th style="width: 40%;">Status:</th>
+                <td><span class="badge bg-success text-dark">{{ geraet.status }}</span></td>
+                </tr>
+                <tr>
+                <th>Kategorie:</th>
+                <td>{{ geraet.kategorie }}</td>
+                </tr>
+                <tr>
+                <th>Barcode:</th>
+                <td>{{ geraet.barcode|default:"Kein Barcode" }}</td>
+                </tr>
+            </table>
+            {% if pruefung_status %}
+            <div class="mt-3">
+                <h5 class="mb-2">Prüfungsstatus</h5>
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Datum</th>
-                                <th>Art</th>
-                                <th>Befunf</th>
-                                <th>Pruefer</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for pruefung in pruefungen %}
-                            <tr>
-                                <td>{{ pruefung.datum }}</td>
-                                <td>{{ pruefung.art }}</td>
-                                <td>{{ pruefung.befund }}</td>
-                                <td>{{ pruefung.pruefer }}</td>
-                                <td class="text-center">
-                                    <a href="{% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-primary btn-sm">
-                                        <i class="bi bi-eye"></i> Details
-                                    </a>
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="6" class="text-center">Keine Geräte vorhanden.</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <table class="table table-sm table-hover">
+                    <thead class="table-secondary">
+                    <tr>
+                        <th>Prüfung</th>
+                        <th>Nächste Prüfung</th>
+                        <th>Letzte Prüfung</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for status in pruefung_status %}
+                    <tr>
+                        <td>{{ status.art }}</td>
+                        <td>{{ status.naechste_pruefung }}</td>
+                        <td>{{ status.letzte_pruefung }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center">Keine Prüfungsstatus vorhanden.</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
                 </div>
-                {% endif %}
-
-                <div class="mt-4">
-                    <a href="{% url 'geraete:geraete_edit' geraet.id %}" class="btn btn-warning">
-                        <i class="bi bi-pencil"></i> Bearbeiten
-                    </a>
-                    <a href="{% url 'geraete:geraete_liste' %}" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left"></i> Zurück zur Liste
-                    </a>
-                </div>
+            </div>
+            {% endif %}
             </div>
         </div>
-    </div>
+        <!-- Bemerkung -->
+        <div class="mt-4">
+            <h5>Bemerkung</h5>
+            <div class="p-3 border border-2 rounded" >
+            {{ geraet.bemerkung|default:"Keine Bemerkung" }}
+            </div>
+        </div>
+        <!-- Prüfungen -->
+        {% if pruefungen %}
+        <div class="mt-4">
+            <h5>Prüfungen</h5>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Datum</th>
+                    <th>Art</th>
+                    <th>Befund</th>
+                    <th>Prüfer</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pruefung in pruefungen %}
+                <tr>
+                    <td>{{ pruefung.datum|date:"d.m.Y" }}</td>
+                    <td>{{ pruefung.art }}</td>
+                    <td>{{ pruefung.befund }}</td>
+                    <td>{{ pruefung.pruefer }}</td>
+                    <td class="text-center">
+                    <a href="{% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i> Details
+                    </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Keine Prüfungen vorhanden.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        {% endif %}
+        <!-- Navigation Buttons -->
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="{% url 'geraete:geraete_edit' geraet.id %}" class="btn btn-warning">
+            <i class="bi bi-pencil">Bearbeiten</i> 
+            </a>
+            <a href="{% url 'geraete:geraete_liste' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left">Zurück zur Liste</i> 
+            </a>
+        </div>
+        
 
     {% endblock %}

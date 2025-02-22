@@ -25,17 +25,17 @@ def pruefung_detail(request, id):
     antworten = Checkliste_Ergebnis.objects.filter(pruefung_id = pruefung.id, )
     return render(request, 'pruefung/pruefung_detail.html', {'pruefung': pruefung, 'antworten' : antworten})
 
-def pruefung_starten(request):
-    if request.method == 'POST':
-        form = PruefungForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('pruefung:pruefungs_liste')
-    
-    else:
-        form = PruefungForm()
-    
-    return render(request, 'pruefung/pruefungdurchfuehrenalt.html', {'form': form})
+#def pruefung_starten(request):
+#    if request.method == 'POST':
+#        form = PruefungForm(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            return redirect('pruefung:pruefungs_liste')
+#    
+#    else:
+#        form = PruefungForm()
+#    
+#    return render(request, 'pruefung/pruefungdurchfuehrenalt.html', {'form': form})
 
 def pruefung_auswahl(request):
     arten = Art.objects.all()

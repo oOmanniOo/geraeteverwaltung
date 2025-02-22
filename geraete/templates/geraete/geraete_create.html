@@ -3,18 +3,20 @@
 
 {% block title %} Geräte erstellen {% endblock %}
 
+{% block content-header %}Neues Gerät erstellen{% endblock  %}
+
 {% block content %} 
 
-    <h1>Neues Gerät erstellen</h1>
-<div class="container mt-5">
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Gerät anlegen</button>
-    </form>
-
-    <a href="{% url 'geraete:geraete_liste' %}">Zurück zur Liste</a>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">Gerät anlegen</button>
+                <a href="{% url 'geraete:geraete_liste' %}" class="btn btn-danger">Zurück zur Liste</a>    
+            </form>
+        
+            
+        </div>
     
-</div>
  
 {% endblock %}

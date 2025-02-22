@@ -2,14 +2,10 @@
 
 {% block title %} Auswahl Prüfung {% endblock  %}
 
+{% block content-header %}Prüfung Auswählen{% endblock  %}
+
 {% block content %}
 
-
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h1>Prüfung Auswählen</h1>
-        </div>
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
@@ -27,10 +23,9 @@
                 <select>
                 <br>
                 <br>
-                <button class="submit">Auswahl bestätigen</button>
+                <button class="submit btn btn-success">Auswahl bestätigen</button>
             </form>
         </div>
-    </div>
-</div>
+
 
 {% endblock  %}

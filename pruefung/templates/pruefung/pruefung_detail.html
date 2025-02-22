@@ -2,14 +2,11 @@
 
 {% block title %} {{ pruefung.geraet }} {% endblock  %}
 
+{% block content-header %}{{ pruefung.geraet }}{% endblock  %}
+
 {% block content %}
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-dark text-white">
-            <h2>{{ pruefung.geraet }}</h2>
-        </div>
-        <div class="card-body"> 
+
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Gerät:</strong> {{ pruefung.geraet }}</p>
@@ -58,9 +55,7 @@
                 <a href="#" class="btn btn-warning">Bearbeiten</a>
                 <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">Zurück zur Liste</a>
             </div>
-        </div>
-    </div>
-</div>
+
 
 
 
