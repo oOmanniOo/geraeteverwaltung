@@ -7,8 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>{% block title %}Feuerwehr Verwaltung{% endblock %}</title>
 </head>
-<body class="bg-primary-subtle">
-    
+<body class="bg-secondary">
     <script> // Nachrichten verschwinden nach 3 Sekunden
         setTimeout(function() {
             let alerts = document.querySelectorAll(".alert");
@@ -29,10 +28,21 @@
             </div>
     {% endfor %}
     {% endif %}
-    
-    <div class="container-fluid">
-        {% block content %}{% endblock %}
+
+    <div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h2 class="mb-0">
+                    {% block content-header %}{% endblock %}
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% block content %}{% endblock %}    
+                </div>
+        </div>
     </div>
+
 
 </body>
 </html>

@@ -42,3 +42,8 @@ def geraete_edit(request, id):
         form = GeraeteForm(instance=geraet)
 
     return render(request, 'geraete/geraete_edit.html', {'form': form})
+
+def suche_view(request):
+    query = request.GET.get("q","")
+    ergebnisse = Geraet.objects.filter(bezeichnung__icontains=query) if query else []
+    return render(request, "geraete/suche_ergebnisse.html", {"ergebnisse":ergebnisse, "query": query})

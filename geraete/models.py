@@ -25,6 +25,6 @@ class Geraet(models.Model):
     barcode = models.PositiveIntegerField(blank=True, null=True, unique=True)
     
     def __str__(self):
-        return f"{self.bezeichnung} ({self.identifikation})"
+        return f"{self.bezeichnung} ({self.barcode})"
     
 
