@@ -25,4 +25,10 @@
       </ul>
     </div>
   </div>
+  <div class="navbar"> 
+    <form class="d-flex" action="{% url 'geraete:suche' %}" method="GET">
+      <input class="form-control me-2" type="search" name="q" placeholder="Suche..." aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Suchen</button>
+    </form>
+  </div>
 </nav>

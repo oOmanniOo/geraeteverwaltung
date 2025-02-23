@@ -1,19 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.forms import modelformset_factory
-from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen, Naechste_Pruefung
-from geraete.models import Geraet
-from .forms import PruefungForm, ChecklistenErgebnisForm
 from django.contrib import messages
 from django.utils.timezone import now
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+
+from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen, Naechste_Pruefung
+from .forms import PruefungForm, ChecklistenErgebnisForm
+from geraete.models import Geraet
+
 from weasyprint import HTML
 
 # Create your views here.
 def pruefung_liste(request):
     pruefungen = Pruefung.objects.all()
-    return render(request, 'pruefung/pruefung_liste.html', {'pruefungen' : pruefungen})
+    paginator = Paginator(pruefungen,25)
+    
+    page_number = request.GET.get("Seite")
+    page_obj = paginator.get_page(page_number) 
+    return render(request, 'pruefung/pruefung_liste.html', {'page_obj' : page_obj})
 
 def pruefung_naechste(request):
     pruefung_status = Naechste_Pruefung.objects.filter(naechste_pruefung__lt=now().date()).order_by("naechste_pruefung")
