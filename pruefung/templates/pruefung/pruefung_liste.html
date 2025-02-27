@@ -31,7 +31,7 @@
                 <td> {{ pruefung.art }} </td>
                 <td> {{ pruefung.datum }}</td>
                 <td> {{ pruefung.befund }} </td>
-                <td> <a href=" {% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-primary btn-sm"><i class="bi bi-eye">Details</i></a> </td>
+                <td> <a href=" {% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-eye">Details</i></a> </td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,17 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Geraet
+from .models import Geraet, Kategorie
 from pruefung.models import Pruefung, Naechste_Pruefung
 from .forms import GeraeteForm
 
 def geraete_liste(request):
-    geraete = Geraet.objects.all()
-    return render(request, 'geraete/geraete_liste.html', {'geraete': geraete})
+    kategorie_id = request.GET.get('kategorie')
+    kategorien = Kategorie.objects.all()
+    
+    if kategorie_id:
+        geraete = Geraet.objects.filter(kategorie_id=kategorie_id)
+    else:
+        geraete = Geraet.objects.all()
+    
+    return render(request, 'geraete/geraete_liste.html', {
+        'geraete': geraete, 
+        'kategorien': kategorien
+    })
 
 def geraete_detail(request, id):
     geraet = get_object_or_404(Geraet, id=id)
     pruefung_status = Naechste_Pruefung.objects.filter(geraet=geraet)
     pruefungen = Pruefung.objects.filter(geraet=geraet).order_by('-datum')[:5]
-    return render(request, 'geraete/geraete_detail.html', {'geraet': geraet, 'pruefungen':pruefungen, 'pruefung_status': pruefung_status})
+    return render(request, 'geraete/geraete_detail.html', {
+        'geraet': geraet,
+        'pruefungen':pruefungen,
+        'pruefung_status': pruefung_status
+    })
 
 def geraete_create(request):
     if request.method == 'POST':
