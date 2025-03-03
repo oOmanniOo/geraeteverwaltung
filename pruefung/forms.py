@@ -46,3 +46,8 @@ class ChecklistenErgebnisForm(forms.ModelForm):
         widgets = {
             'frage': forms.HiddenInput(),
        }
+        
+class PruefungsFormEdit(forms.ModelForm):
+    class Meta:
+        model = Pruefung
+        fields = ['datum', 'pruefer', 'befund', 'bemerkung', 'bestanden', 'intervall']
