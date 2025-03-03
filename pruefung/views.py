@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 
 from .models import Pruefung, Art, Checkliste_Ergebnis, Checkliste_Fragen, Naechste_Pruefung
-from .forms import PruefungForm, ChecklistenErgebnisForm
+from .forms import PruefungForm, PruefungsFormEdit , ChecklistenErgebnisForm
 from geraete.models import Geraet
 
 from weasyprint import HTML
@@ -31,18 +31,6 @@ def pruefung_detail(request, id):
     pruefung = get_object_or_404(Pruefung, id=id)
     antworten = Checkliste_Ergebnis.objects.filter(pruefung_id = pruefung.id, )
     return render(request, 'pruefung/pruefung_detail.html', {'pruefung': pruefung, 'antworten' : antworten})
-
-#def pruefung_starten(request):
-#    if request.method == 'POST':
-#        form = PruefungForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('pruefung:pruefungs_liste')
-#    
-#    else:
-#        form = PruefungForm()
-#    
-#    return render(request, 'pruefung/pruefungdurchfuehrenalt.html', {'form': form})
 
 def pruefung_auswahl(request):
     arten = Art.objects.all()
@@ -128,3 +116,26 @@ def generate_pdf(request, id):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="pruefung.pdf"'
     return response
+
+def pruefung_edit(request, id):
+    pruefung = get_object_or_404(Pruefung, id=id)
+    ChecklistenErgebnisFormset = modelformset_factory(Checkliste_Ergebnis, form=ChecklistenErgebnisForm, extra=0)
+    print(request.POST) 
+    if request.method == "POST":
+        pruefung_form = PruefungsFormEdit(request.POST, instance=pruefung)
+        antwort_formset = ChecklistenErgebnisFormset(request.POST, queryset=Checkliste_Ergebnis.objects.filter(pruefung=pruefung))
+
+        if pruefung_form.is_valid() and antwort_formset.is_valid():
+            pruefung_form.save()
+            antwort_formset.save()
+            return redirect(reverse('pruefung:pruefung_detail', kwargs={'id': pruefung.id}))
+
+    else:
+        pruefung_form = PruefungsFormEdit(instance=pruefung)
+        antwort_formset = ChecklistenErgebnisFormset(queryset=Checkliste_Ergebnis.objects.filter(pruefung=pruefung))
+
+    return render(request, 'pruefung/pruefung_edit.html', {
+        'pruefung_form': pruefung_form,
+        'antwort_formset': antwort_formset,
+        'pruefung': pruefung
+    })

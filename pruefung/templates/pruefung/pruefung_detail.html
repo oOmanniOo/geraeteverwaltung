@@ -52,7 +52,7 @@
             {% endif %}
             <div class="mt-4">
                 <a href="{% url 'pruefung:pdf_erzeugen' pruefung.id %}" class="btn btn-success" target="_blank" rel="noopener noreferrer">PDF erzeugen</a>
-                <a href="#" class="btn btn-warning">Bearbeiten</a>
+                <a href="{% url 'pruefung:pruefung_edit' pruefung.id %}" class="btn btn-warning">Bearbeiten</a>
                 <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">Zurück zur Liste</a>
             </div>
 

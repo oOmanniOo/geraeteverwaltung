@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content-header %}Prüfung bearbeiten: {{ pruefung.geraet }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="card mb-3">
+            <div class="card-header bg-secondary text-white">
+                <h5>Prüfungsdetails</h5>
+            </div>
+            <div class="card-body">
+                {{ pruefung_form|crispy}}
+                {{ antwort_formset.management_form }}
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header bg-secondary text-white">
+                <h5>Checklisten-Antworten</h5>
+            </div>
+            <div class="card-body">
+                {% for form in antwort_formset %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.instance.frage }}</label>
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Speichern</button>
+        <a href="{% url 'pruefung:pruefung_detail' pruefung.id %}" class="btn btn-secondary">Abbrechen</a>
+    </form>
+</div>
+{% endblock %}
