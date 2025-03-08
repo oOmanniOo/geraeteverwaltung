@@ -9,7 +9,20 @@ class PruefungForm(forms.ModelForm):
     
     class Meta:
         model = Pruefung
-        fields = ['datum','art_display', 'geraet_display', 'pruefer', 'befund', 'art','bemerkung', 'geraet', 'bestanden', 'intervall']
+        fields = [
+            'datum',
+            'art_display',
+            'geraet_display',
+            'pruefer',
+            'befund',
+            'art',
+            'bemerkung',
+            'geraet',
+            'bestanden',
+            'intervall',
+            'feueron'
+            ]
+        
         widgets = {
             'datum': forms.DateInput(attrs={'type': 'date'}),
             'art': forms.HiddenInput(),
@@ -42,7 +55,12 @@ class PruefungForm(forms.ModelForm):
 class ChecklistenErgebnisForm(forms.ModelForm):
     class Meta:
         model = Checkliste_Ergebnis
-        fields = ['frage', 'antwort', 'bemerkung']
+        fields = [
+            'frage',
+            'antwort',
+            'bemerkung'
+            ]
+        
         widgets = {
             'frage': forms.HiddenInput(),
        }
@@ -50,4 +68,11 @@ class ChecklistenErgebnisForm(forms.ModelForm):
 class PruefungsFormEdit(forms.ModelForm):
     class Meta:
         model = Pruefung
-        fields = ['datum', 'pruefer', 'befund', 'bemerkung', 'bestanden', 'intervall']
+        fields = [
+            'datum',
+            'pruefer',
+            'befund',
+            'bemerkung',
+            'bestanden',
+            'intervall',
+            'feueron',]

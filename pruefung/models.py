@@ -25,6 +25,7 @@ class Pruefung(models.Model):
     geraet = models.ForeignKey(Geraet, on_delete=models.PROTECT, null=False)
     bestanden = models.BooleanField()
     intervall = models.PositiveIntegerField(default=12, help_text="Intervalle in Monaten")
+    feueron = models.BooleanField(default=False)
     
     def naechste_pruefung(self):
         if self.intervall != 0:

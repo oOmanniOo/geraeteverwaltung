@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content-header %}{{ fahrzeug.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Linke Spalte: Fahrzeugdetails -->
+    <div class="col-md-6">
+        <h5 class="mb-3">Fahrzeugdetails</h5>
+        <table class="table table-borderless">
+            <tr>
+                <th style="width: 40%;">Fahrzeug:</th>
+                <td>{{ fahrzeug.name }}</td>
+            </tr>
+            <tr>
+                <th>Funkrufname:</th>
+                <td>{{ fahrzeug.funkrufname }}</td>
+            </tr>
+        </table>
+    </div>    
+
+    <!-- Rechte Spalte: Weitere Details -->
+    <div class="col-md-6">
+        <h5 class="mb-3">Weitere Details</h5>
+        <table class="table table-borderless">
+            <tr>
+                <th style="width: 40%;">Hersteller:</th>
+                <td>{{ fahrzeug.hersteller }}</td>
+            </tr>
+            <tr>
+                <th>Baujahr:</th>
+                <td>{{ fahrzeug.baujahr }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Anzeige der Geräteräume -->
+{% if geraeteraume %}
+<div class="mt-4">
+    <h5>Geräteräume</h5>
+    <ul class="list-group">
+        {% for geraeteraum in geraeteraume %}
+        <li class="list-group-item">{{ geraeteraum }}</li>
+            {% for geraet in geraete %}
+                {% if geraet.geraeteraum.id == geraeteraum.id %}
+                    {{  geraet  }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p class="mt-4">Keine Geräteräume vorhanden.</p>
+{% endif %}
+
+
+{% endblock %}
