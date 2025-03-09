@@ -1,4 +1,5 @@
 from django.db import models
+from fahrzeuge.models import Geraeteraum
 
 # Create your models here.
 class Status(models.Model):
@@ -23,6 +24,7 @@ class Geraet(models.Model):
     kategorie = models.ForeignKey(Kategorie, on_delete=models.SET_NULL, null=True)
     bemerkung = models.TextField(blank=True, null=True)
     barcode = models.PositiveIntegerField(blank=True, null=True, unique=True)
+    geraeteraum = models.ForeignKey(Geraeteraum, on_delete=models.SET_NULL, null=True, unique=False, related_name='geraete')
     
     def __str__(self):
         return f"{self.bezeichnung} ({self.barcode})"
