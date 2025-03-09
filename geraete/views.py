@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Geraet, Kategorie
+from django.db.models import Q
 from pruefung.models import Pruefung, Naechste_Pruefung
 from .forms import GeraeteForm
 
@@ -59,5 +60,13 @@ def geraete_edit(request, id):
 
 def suche_view(request):
     query = request.GET.get("q","")
-    ergebnisse = Geraet.objects.filter(bezeichnung__icontains=query) if query else []
+    if query:
+        ergebnisse = Geraet.objects.filter(
+            Q(bezeichnung__icontains=query) |
+            Q(barcode__icontains=query) |
+            Q(identifikation__icontains=query)
+            )
+        
+    else:
+        ergebnisse = []
     return render(request, "geraete/suche_ergebnisse.html", {"ergebnisse":ergebnisse, "query": query})
