@@ -2,7 +2,7 @@
 
 {% block title %}{{ geraet.identifikation }}{% endblock %}
 
-{% block content-header %}{{ geraet.bezeichnung }}{% endblock %}
+{% block content-header %}{{ geraet.identifikation }}{% endblock %}
 
 {% block content %}
 <!-- Linke Spalte: Gerätedetails -->
@@ -10,12 +10,12 @@
     <h5 class="mb-3">Gerätedetails</h5>
     <table class="table table-borderless">
         <tr>
-            <th style="width: 40%;">Identifikation:</th>
-            <td>{{ geraet.identifikation }}</td>
+            <th style="width: 40%;">Bezeichnugn:</th>
+            <td>{{ geraet.bezeichnung }}</td>
         </tr>
         <tr>
-            <th>Seriennummer:</th>
-            <td>{{ geraet.seriennummer|default:"Keine Seriennummer" }}</td>
+            <th>Kategorie:</th>
+            <td>{{ geraet.kategorie }}</td>
         </tr>
         <tr>
             <th>Hersteller:</th>
@@ -37,12 +37,16 @@
             <td><span class="badge bg-success text-dark">{{ geraet.status }}</span></td>
         </tr>
         <tr>
-            <th>Kategorie:</th>
-            <td>{{ geraet.kategorie }}</td>
+            <th>Seriennummer:</th>
+            <td>{{ geraet.seriennummer|default:"Keine Seriennummer" }}</td>
         </tr>
         <tr>
             <th>Barcode:</th>
             <td>{{ geraet.barcode|default:"Kein Barcode" }}</td>
+        </tr>
+        <tr>
+            <th>Inventarnummer  :</th>
+            <td>{{ geraet.inventarnummer }}</td>
         </tr>
         <tr>
             <th>Geräteraum:</th>

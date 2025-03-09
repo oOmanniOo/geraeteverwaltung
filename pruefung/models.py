@@ -38,7 +38,7 @@ class Pruefung(models.Model):
     
 class Checkliste_Fragen(models.Model):
     art = models.ForeignKey(Art, on_delete=models.PROTECT)
-    kategorie = models.ForeignKey(Kategorie, on_delete=models.PROTECT)
+    kategorie = models.ManyToManyField(Kategorie)
     frage = models.CharField(max_length=200, null=False, blank=False)
     
     def __str__(self):

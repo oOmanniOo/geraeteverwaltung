@@ -5,7 +5,6 @@ class GeraeteForm(forms.ModelForm):
     class Meta:
         model = Geraet
         fields = [
-            'bezeichnung',
             'seriennummer',
             'identifikation',
             'status',
@@ -15,4 +14,5 @@ class GeraeteForm(forms.ModelForm):
             'kategorie',
             'barcode',
             'geraeteraum',
+            'inventarnummer',
         ]

@@ -17,8 +17,8 @@
                 <br>
                 <br>
                 <select name="auswahlgeraet">
-                    {% for geraet in geraete %}
-                        <option value="{{ geraet.id }}"> {{ geraet.bezeichnung }}</option>
+                    {% for geraet in geraete|dictsort:'identifikation' %}
+                        <option value="{{ geraet.id }}"> {{ geraet.identifikation }}</option>
                     {% endfor %}
                 <select>
                 <br>

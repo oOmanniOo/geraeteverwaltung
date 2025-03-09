@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Geraet, Kategorie
 from django.db.models import Q
+from django.core.paginator import Paginator
+
 from pruefung.models import Pruefung, Naechste_Pruefung
+from .models import Geraet, Kategorie
 from .forms import GeraeteForm
 
 def geraete_liste(request):
@@ -10,11 +12,18 @@ def geraete_liste(request):
     
     if kategorie_id:
         geraete = Geraet.objects.filter(kategorie_id=kategorie_id)
+        paginator = Paginator(geraete, 25)
+        seitenzahl = request.GET.get('Seite')
+        page_obj = paginator.get_page(seitenzahl)
+        
     else:
         geraete = Geraet.objects.all()
+        paginator = Paginator(geraete, 25)
+        seitenzahl = request.GET.get('Seite')
+        page_obj = paginator.get_page(seitenzahl)
     
     return render(request, 'geraete/geraete_liste.html', {
-        'geraete': geraete, 
+        'page_obj': page_obj, 
         'kategorien': kategorien
     })
 
