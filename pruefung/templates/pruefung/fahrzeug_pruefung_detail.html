@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  {{ pruefung.geraet }}
+  {{ pruefung.fahrzeug }}
 {% endblock %}
 
-{% block content - header %}{{ pruefung.geraet }}{% endblock %}
+{% block header %} {{ pruefung.fahrzeug }} {% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col-md-6">
       <p>
-        <strong>Gerät:</strong> {{ pruefung.geraet }}
+        <strong>Gerät:</strong> {{ pruefung.datum }}
       </p>
       <p>
         <strong>Prüfung:</strong> {{ pruefung.art }}
@@ -23,7 +23,9 @@
       </p>
     </div>
     <div class="col-md-6">
-      <span><strong>Prüfer:</strong>{{ pruefung.pruefer }}</span>
+      <p>
+        <strong>Prüfer:</strong>{{ pruefung.pruefer }}
+      </p>
       <p>
         <strong>nächste Prüfung:</strong> {{ pruefung.naechste_pruefung }}
       </p>
@@ -37,7 +39,8 @@
     <h5>Bemerkung</h5>
     <p class="border p-3">{{ pruefung.bemerkung|default:'Keine Bemerkung' }}</p>
   </div>
-  {% if antworten %}
+
+  {% if checkliste %}
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
@@ -48,10 +51,10 @@
           </tr>
         </thead>
         <tbody>
-          {% for antwort in antworten %}
+          {% for check in checkliste %}
             <tr>
-              <td>{{ antwort.frage }}</td>
-              {% if antwort.antwort %}
+              <td>{{ check.frage }}</td>
+              {% if check.antwort %}
                 <td>
                   <span class="badge bg-success">Bestanden</span>
                 </td>
@@ -60,7 +63,7 @@
                   <span class="badge bg-danger">nicht Bestanden</span>
                 </td>
               {% endif %}
-              <td>{{ antwort.bemerkung }}</td>
+              <td>{{ check.bemerkung }}</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -68,8 +71,8 @@
     </div>
   {% endif %}
   <div class="mt-4">
-    <a href="{% url 'pruefung:pdf_erzeugen' pruefung.id %}" class="btn btn-success" target="_blank" rel="noopener noreferrer">PDF erzeugen</a>
-    <a href="{% url 'pruefung:pruefung_edit' pruefung.id %}" class="btn btn-warning">Bearbeiten</a>
-    <a href="{% url 'pruefung:pruefungs_liste' %}" class="btn btn-secondary">Zurück zur Liste</a>
+    <a href="#" class="btn btn-success" target="_blank" rel="noopener noreferrer">PDF erzeugen</a>
+    <a href="#" class="btn btn-warning">Bearbeiten</a>
+    <a href="#" class="btn btn-secondary">Zurück zur Liste</a>
   </div>
 {% endblock %}
