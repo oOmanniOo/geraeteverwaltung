@@ -42,6 +42,6 @@ def import_csv(file_path):
                 )
 
 if __name__ == '__main__':
-    file_path = r'C:\Users\Arne\Documents\Django\geraeteverwaltung\geraete.csv'
+    file_path = r'C:/Users/ArneD/Documents/Projekte/geraeteverwaltung/geraete.csv'
     import_csv(file_path)
     print('Data imported')

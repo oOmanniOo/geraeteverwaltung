@@ -220,4 +220,14 @@ def fahrzeug_pruefung_durchfuehren(request):
             
             messages.success(request, "Prüfung erfolgreich durchgeführt")
             return redirect(reverse('fahrzeuge:fahrzeug_detail' , kwargs={'id': fahrzeug.id} ))
-        
+        else:
+            messages.error(request, "Es gab ein Problem mit der Eingabe. Bitte überprüfe die Formulare.")
+            context = {
+                'pruefung_form': pruefung_form,
+                'formset': formset,
+                'zipped_forms': list(zip(formset, checklisten_fragen)),
+                'checklisten_fragen': checklisten_fragen,
+                'fahrzeug': fahrzeug,
+                'monat': monat,
+            }
+            return render(request, 'pruefung/fahrzeug_pruefung_durchfuehren.html', context)        

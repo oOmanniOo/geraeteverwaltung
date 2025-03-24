@@ -93,6 +93,11 @@ class FahrzeugPruefFormCreate(forms.ModelForm):
             'bemerkung',
         ]
 
+        widgets = {
+            'datum': forms.DateInput(attrs={'type': 'date'}),
+        }
+        
+
 class FahrzeugChecklistenErgebnisForm(forms.ModelForm):
     class Meta:
         model = Fahrzeug_Checkliste_Ergebnis
