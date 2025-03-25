@@ -29,20 +29,20 @@
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th>Bezeichnung</th>
                     <th>Identifikation</th>
                     <th>Kategorie</th>
+                    <th>Barcode</th>
                     <th>Seriennummer</th>
                     <th>Status</th>
                     <th>Aktionen</th>
                 </tr>
             </thead>
             <tbody>
-                {% for geraet in geraete %}
+                {% for geraet in page_obj %}
                 <tr>
-                    <td>{{ geraet.bezeichnung }}</td>
                     <td>{{ geraet.identifikation }}</td>
                     <td>{{ geraet.kategorie|default:"-" }}</td>
+                    <td>{{ geraet.barcode }}</td>
                     <td>{{ geraet.seriennummer|default:"-" }}</td>
                     <td class="text-center">
                         <span class="badge bg-info">{{ geraet.status }}</span>
@@ -61,4 +61,6 @@
             </tbody>
         </table>
     </div>
+    
+    {% include 'pagination.html' %}
 {% endblock %}

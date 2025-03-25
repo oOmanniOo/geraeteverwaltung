@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content-header %}Prüfungen Fahrzeuge{% endblock %}
+{% block content %}
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Fahrzeug</th>
+      <th scope="col">Prüfungsdatum</th>
+      <th scope="col">Prüfer</th>
+      <th scope="col">Ergebnis</th>
+      <th scope="col">Aktionen</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pruefung in page_obj %}
+    <tr>
+      <td>{{ pruefung.fahrzeug }}</td>
+      <td>{{ pruefung.datum }}</td>
+      <td>{{ pruefung.pruefer }}</td>
+      <td>{{ pruefung.befund }}</td>
+      <td>
+        <a href="#" class="btn btn-primary btn-sm">Details</a>
+        <a href="#" class="btn btn-warning btn-sm">Bearbeiten</a>
+        <a href="#" class="btn btn-danger btn-sm">Löschen</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  {% include "pagination.html" %}
+{% endblock %}
+
+

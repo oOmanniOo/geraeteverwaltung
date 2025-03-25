@@ -15,7 +15,7 @@ class Kategorie(models.Model):
         return self.name
 
 class Geraet(models.Model):
-    bezeichnung = models.CharField(max_length=100) 
+    bezeichnung = models.CharField(max_length=100, blank=True, null=True) 
     identifikation = models.CharField(max_length=50, unique=True)
     seriennummer = models.CharField(max_length=50, blank=True, null=True)
     hersteller = models.CharField(max_length=100, blank=True, null=True)
@@ -23,10 +23,11 @@ class Geraet(models.Model):
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
     kategorie = models.ForeignKey(Kategorie, on_delete=models.SET_NULL, null=True)
     bemerkung = models.TextField(blank=True, null=True)
-    barcode = models.PositiveIntegerField(blank=True, null=True, unique=True)
+    barcode = models.CharField(max_length=15,blank=True, null=True, unique=True)
     geraeteraum = models.ForeignKey(Geraeteraum, on_delete=models.SET_NULL, null=True, unique=False, related_name='geraete')
+    inventarnummer = models.CharField(max_length=50, blank=True, null=True)
     
     def __str__(self):
-        return f"{self.bezeichnung} ({self.barcode})"
+        return f"{self.identifikation} ({self.barcode})"
     
 

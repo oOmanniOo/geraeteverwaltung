@@ -1,6 +1,7 @@
 from django import forms
-from .models import Pruefung, Checkliste_Ergebnis, Art
+from .models import Pruefung, Checkliste_Ergebnis, Art, Fahrzeug_Pruefung, Fahrzeug_Checkliste_Ergebnis
 from geraete.models import Geraet
+from fahrzeuge.models import Fahrzeug
 
 
 class PruefungForm(forms.ModelForm):
@@ -76,3 +77,36 @@ class PruefungsFormEdit(forms.ModelForm):
             'bestanden',
             'intervall',
             'feueron',]
+
+
+## Fahrzeug prüfungen
+
+class FahrzeugPruefFormCreate(forms.ModelForm):
+    class Meta:
+        model = Fahrzeug_Pruefung
+        fields =[
+            'fahrzeug',
+            'datum',
+            'pruefer',
+            'befund',
+            'bestanden',
+            'bemerkung',
+        ]
+
+        widgets = {
+            'datum': forms.DateInput(attrs={'type': 'date'}),
+        }
+        
+
+class FahrzeugChecklistenErgebnisForm(forms.ModelForm):
+    class Meta:
+        model = Fahrzeug_Checkliste_Ergebnis
+        fields = [
+            'frage',
+            'antwort',
+            'bemerkung'
+            ]
+        
+        widgets = {
+            'frage': forms.HiddenInput(),
+       }

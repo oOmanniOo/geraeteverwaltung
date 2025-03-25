@@ -1,23 +1,33 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Geraet, Kategorie
 from django.db.models import Q
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+
 from pruefung.models import Pruefung, Naechste_Pruefung
+from .models import Geraet, Kategorie
 from .forms import GeraeteForm
 
-def geraete_liste(request):
-    kategorie_id = request.GET.get('kategorie')
-    kategorien = Kategorie.objects.all()
-    
-    if kategorie_id:
-        geraete = Geraet.objects.filter(kategorie_id=kategorie_id)
-    else:
-        geraete = Geraet.objects.all()
-    
-    return render(request, 'geraete/geraete_liste.html', {
-        'geraete': geraete, 
-        'kategorien': kategorien
-    })
+class GeraeteListe(ListView):
+    model = Geraet
+    template_name = 'geraete/geraete_liste.html'
+    context_object_name = 'geraete'
+    paginate_by = 20
 
+    def get_queryset(self):
+        self.kategorien = Kategorie.objects.all()
+        kategorie_id = self.request.GET.get('kategorie')
+
+        if kategorie_id:
+            return Geraet.objects.filter(kategorie_id=kategorie_id)
+        
+        return Geraet.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['kategorien'] = self.kategorien
+
+        return context
+        
 def geraete_detail(request, id):
     geraet = get_object_or_404(Geraet, id=id)
     pruefung_status = Naechste_Pruefung.objects.filter(geraet=geraet)

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Prüfung durchführen {% endblock %}
+{% block content-header %}Prüfung Neu{% endblock  %}
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ pruefung_form|crispy }}
+
+    {{ formset.management_form }}
+    {% for form, question in zipped_forms %}
+        <div class="form-group">
+            <p><strong> {{ question.frage }} </strong></p>
+            {{ form|crispy }}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Prüfung speichern</button>
+</form>
+<a href="{% url 'fahrzeuge:fahrzeug_detail' fahrzeug.id %}">Zurück zum Fahrzeug</a>
+
+
+{% endblock  %}

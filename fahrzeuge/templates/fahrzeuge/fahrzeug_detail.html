@@ -34,7 +34,52 @@
             </table>
         </div>
     </div>
+    {{fahrzeug.id}}
+    <form method="GET" action="{% url 'pruefung:fahrzeug_pruefungs_durchfuehren' %}">
+        <select name="monat">
+            {% for m in monat %}
+                <option id="monat" name="monat" value="{{ m.id }}">{{ m }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="fahrzeug" id="{{fahrzeug.id}}" value="{{fahrzeug.id}}" />
+        <button class="submit btn btn-success">Prüfung starten</button>
+    </form>
+<!-- Anzeige der Prüfungen -->
+{% if pruefungen %}
+<div class="mt-3">
+    <h5 class="mb-2">letze Prüfungen</h5>
+    <div class="table-responsive">
+        <table class="table table-sm table-hover">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Prüfung</th>
+                    <th>Nächste Prüfung</th>
+                    <th>Letzte Prüfung</th>
+                    <th>Monat</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pruefung in pruefungen %}
+                <tr>
+                    <td class="pt-2">{{ pruefung.datum }}</td>
+                    <td class="pt-2">{{ pruefung.pruefer }}</td>
+                    <td class="pt-2">{{ pruefung.befund }}</td>
+                    <td class="pt-2">{{ pruefung.monat }}</td>
+                    <td class="text-center pt-2">
+                        <a href="{% url 'pruefung:fahrzeug_pruefungs_detail' pruefung.fahrzeug.id %}" class="btn btn-success">Details</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Keine Prüfungsstatus vorhanden.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
 </div>
+{% endif %}
 
 <!-- Anzeige der Geräteräume -->
 {% if geraeteraume %}
