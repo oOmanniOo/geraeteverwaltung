@@ -20,7 +20,7 @@ from geraete import views #Nachdem die Startseite definiert ist endernen
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.geraete_liste, name='home'), #wenn Startseite vorhanden ist ändern 
+    path('', views.GeraeteListe.as_view(), name='home'), # Startseite vorhanden ist ändern 
     path('geraete/', include('geraete.urls')),
     path('pruefung/', include('pruefung.urls')),
     path('fahrzeuge/', include('fahrzeuge.urls')),
